@@ -1,0 +1,46 @@
+---
+- hosts: webservers
+  tasks:
+     - group_by: key=os_{{ ansible_distribution }}
+
+- hosts: os_Debian
+  gather_facts: False
+  tasks:
+    - name: install apache server
+      apt: pkg={{ item }} state=present install_recommends=no
+      with_items:
+        - apache2
+        - git # common role
+        - ca-certificates # common role
+      become: yes
+    - name: remove default index.html page
+      file: path=/var/www/html/index.html state=absent
+      become: yes
+    - name: install self-signed apache cert
+      apt: pkg={{ item }} state=present install_recommends=no
+      with_items:
+        - ssl-cert
+      become: yes
+    - name: enable apache ssl module
+      apache2_module: state=present name=ssl
+      become: yes
+      notify:
+        - restart apache
+    - name: enable apache ssl vhost
+      file: 
+        src: ../sites-available/default-ssl.conf
+        path: /etc/apache2/sites-enabled/default-ssl.conf
+        state: link
+      become: yes
+      notify:
+        - restart apache
+  handlers:
+  - name: restart apache
+    service: name=apache2 state=restarted
+    become: yes
+
+# TODO
+#- hosts: os_CentOS
+#  gather_facts: False
+#  tasks:
+#     - name: tasks that only happen on CentOS go here
