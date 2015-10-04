@@ -1,0 +1,32 @@
+---
+
+- name: install Apache HTTP server (Debian)
+  apt: pkg={{ item }} state=present install_recommends=no
+  with_items:
+    - apache2
+  become: yes
+
+- name: remove default index.html page (Debian)
+  file: path=/var/www/html/index.html state=absent
+  become: yes
+
+- name: install self-signed apache cert (Debian)
+  apt: pkg={{ item }} state=present install_recommends=no
+  with_items:
+    - ssl-cert
+  become: yes
+
+- name: enable apache ssl module (Debian)
+  apache2_module: state=present name=ssl
+  become: yes
+  notify:
+    - restart apache
+
+- name: enable apache ssl vhost (Debian)
+  file: 
+    src: ../sites-available/default-ssl.conf
+    path: /etc/apache2/sites-enabled/default-ssl.conf
+    state: link
+  become: yes
+  notify:
+    - restart apache

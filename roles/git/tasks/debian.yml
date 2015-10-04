@@ -1,0 +1,7 @@
+---
+
+- name: install git (Debian)
+  apt: pkg={{ item }} state=present install_recommends=no
+  with_items:
+    - git
+  become: yes

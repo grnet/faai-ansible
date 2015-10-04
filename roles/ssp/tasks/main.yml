@@ -1,0 +1,57 @@
+---
+
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+#- include: centos.yml
+#  when: ansible_os_family == 'CentOS'
+
+- name: checkout SSP
+  git:
+    repo: "{{ ssp_repo_url }}"
+    dest: "{{ ssp_path }}"
+    version: "{{ ssp_repo_version }}"
+    accept_hostkey: yes
+  become: yes
+
+- name: download Composer
+  get_url: url=https://getcomposer.org/installer dest={{ ssp_path }}/composer-installer validate_certs=no
+  become: yes
+
+- name: install Composer
+  command: php -f {{ ssp_path }}/composer-installer -- --install-dir={{ ssp_path }}
+  args:
+    creates: "{{ ssp_path }}/composer.phar"
+  become: true
+
+- name: run Composer
+  command: php "{{ ssp_path }}/composer.phar" install --no-dev --prefer-dist -o -d "{{ ssp_path }}"
+  args:
+    creates: "{{ ssp_path }}/vendor/autoload.php"
+  become: true
+
+- name: ensure required SSP dirs exist
+  file: path={{ ssp_path }}/{{ item }} state=directory
+  with_items:
+    - config
+    - metadata
+    - cert
+    - log
+  become: yes
+
+- name: generate sha256 password
+  script: ssha256pwgen.php {{ ssp_path }} {{ ssp_adminpassword }} creates="{{ ssp_path }}/config/config.php"
+  register: ssp_adminpasswordhash
+
+- name: generate SSP secret salt
+  shell: tr -c -d '0123456789abcdefghijklmnopqrstuvwxyz' </dev/urandom | dd bs=32 count=1 status=none
+  args:
+    creates: "{{ ssp_path }}/config/config.php"
+  register: ssp_secretsalt
+
+- name: configure SSP
+  template:
+    src: config.php.j2
+    dest: "{{ ssp_path }}/config/config.php"
+    force: no
+  become: yes

@@ -1,0 +1,28 @@
+---
+
+- name: install PHP dependencies (Debian)
+  apt: pkg={{ item }} state=present install_recommends=no
+  with_items:
+    - libapache2-mod-php5
+    - php-openid
+    - php-pear
+    - php-xml-parser
+    - php5-curl
+    - php5-gmp
+    - php5-mcrypt
+    - php5-readline
+  become: true
+
+- name: install CA certificates (Debian)
+  apt: pkg={{ item }} state=present install_recommends=no
+  with_items:
+    - ca-certificates
+  become: true
+
+- name: add SSP alias to ssl site (Debian)
+  template:
+    src: default-ssl.conf.j2
+    dest: /etc/apache2/sites-available/default-ssl.conf
+  become: yes
+  notify:
+    - restart apache

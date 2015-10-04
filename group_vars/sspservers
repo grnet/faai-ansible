@@ -1,7 +1,3 @@
 ---
-ssp_repo_url: git://github.com/grnet/simplesamlphp.git
-ssp_repo_version: devel
-ssp_path: /opt/share/simplesamlphp
-ssp_alias: ssp
-ssp_debug: true
+
 ssp_adminpassword: CHANGE_ME

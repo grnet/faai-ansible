@@ -1,0 +1,7 @@
+---
+
+- name: restart apache
+  service:
+    name: "{{ apache_service_name[ansible_os_family] }}"
+    state: restarted
+  become: yes
