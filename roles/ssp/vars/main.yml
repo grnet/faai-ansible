@@ -4,7 +4,3 @@ ssp_repo_version: devel
 ssp_path: /opt/share/simplesamlphp
 ssp_alias: ssp
 ssp_debug: true
-ssp_technicalcontact_name: 'Bob the Builder'
-ssp_technicalcontact_email: 'bob.builder@example.com'
-ssp_timezone: "'Europe/Athens'"
-#ssp_timezone: 'null' (or let SSP figure it out based on the VM config)

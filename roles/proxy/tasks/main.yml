@@ -1,0 +1,28 @@
+---
+
+#- include: debian.yml
+#  when: ansible_os_family == 'Debian'
+
+#- include: centos.yml
+#  when: ansible_os_family == 'CentOS'
+
+- name: generate SP certificate
+  command: openssl req -newkey rsa:2048 -new -x509 -days 3652 -subj "/C={{ proxy_sp_certificate_country }}/ST=/L=/O=/CN={{ inventory_hostname }}" -nodes -out sp.crt -keyout sp.pem
+  args:
+    chdir: "{{ ssp_path }}/cert"
+    creates: "{{ ssp_path }}/cert/sp.pem"
+  become: yes
+
+- name: configure SSP authN sources
+  template:
+    src: authsources.php.j2
+    dest: "{{ ssp_path }}/config/authsources.php"
+    force: yes
+  become: yes
+
+- name: configure remote IdP metadata (Feide OpenIdP)
+  copy:
+    src: metadata/saml20-idp-remote.php
+    dest: "{{ ssp_path }}/metadata/saml20-idp-remote.php"
+    force: yes
+  become: yes

@@ -1,0 +1,26 @@
+---
+
+ssp_adminpassword: CHANGE_ME
+
+ssp_debug: true
+
+ssp_technicalcontact_name: 'Bob the Builder'
+ssp_technicalcontact_email: 'bob.builder@example.com'
+
+ssp_timezone: "'Europe/Athens'"
+# Let SSP figure it out based on the VM config
+#ssp_timezone: 'null'
+
+proxy_sp_certificate_country: GR
+
+proxy_sp_name:
+  en: Test FAAI Service Provider Proxy
+  el: Πληρεξούσιος Παροχέας Υπηρεσιών Δοκιμαστικής Υποδομής Ομόσπονδης Πιστοποίησης και Εξουσιοδότησης
+
+proxy_sp_description:
+  en: A Service Provider Proxy for all Federated Services
+  el: Ένας Πληρεξούσιος Παροχέας Υπηρεσιών για τη Δοκιμή Υποδομής Ομόσπονδης Πιστοποίησης και Εξουσιοδότησης
+
+proxy_sp_privacy_statement_url:
+  en: "http://{{ inventory_hostname }}/privacy/en"
+  el: "http://{{ inventory_hostname }}/privacy/el"
