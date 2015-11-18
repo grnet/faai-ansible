@@ -55,10 +55,3 @@
     dest: "{{ ssp_path }}/config/config.php"
     force: no
   become: yes
-
-- name: configure SSP authN sources
-  template:
-    src: authsources.php.j2
-    dest: "{{ ssp_path }}/config/authsources.php"
-    force: yes
-  become: yes

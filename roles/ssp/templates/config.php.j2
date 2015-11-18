@@ -44,7 +44,7 @@ $config = array(
      * Note: The messages are logged with the DEBUG log level, so you also need to set
      * the 'logging.level' option to LOG_DEBUG.
      */
-    'debug' => {{ ssp_debug }},
+    'debug' => {{ ssp_debug | default(false) }},
 
     /*
      * When showerrors is enabled, all error messages and stack traces will be output
@@ -208,10 +208,10 @@ $config = array(
      * one of the functionalities below, but in some cases you could run multiple functionalities.
      * In example when you are setting up a federation bridge.
      */
-    'enable.saml20-idp' => false,
-    'enable.shib13-idp' => false,
-    'enable.adfs-idp' => false,
-    'enable.wsfed-sp' => false,
+    'enable.saml20-idp' => {{ saml20_idp | default(false) }},
+    'enable.shib13-idp' => {{ shib13_idp | default(false) }},
+    'enable.adfs-idp' => {{ adfs_idp | default(false) }},
+    'enable.wsfed-sp' => {{ wsfed_sp | default(false) }}, 
     'enable.authmemcookie' => false,
 
 
