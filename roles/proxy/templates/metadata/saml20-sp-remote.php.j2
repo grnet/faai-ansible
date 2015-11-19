@@ -1,0 +1,46 @@
+<?php
+/**
+ * SAML 2.0 remote SP metadata for simpleSAMLphp.
+ *
+ * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-sp-remote
+ */
+
+{% for host in groups['spservers:ssp'] %}
+$metadata['https://{{ host }}/ssp/module.php/saml/sp/metadata.php/sp'] = array (
+  'SingleLogoutService' => 
+  array (
+    0 => 
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+      'Location' => 'https://{{ host }}/ssp/module.php/saml/sp/saml2-logout.php/sp',
+    ),
+  ),
+  'AssertionConsumerService' => 
+  array (
+    0 => 
+    array (
+      'index' => 0,
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
+      'Location' => 'https://{{ host }}/ssp/module.php/saml/sp/saml2-acs.php/sp',
+    ),
+    1 => 
+    array (
+      'index' => 1,
+      'Binding' => 'urn:oasis:names:tc:SAML:1.0:profiles:browser-post',
+      'Location' => 'https://{{ host }}/ssp/module.php/saml/sp/saml1-acs.php/sp',
+    ),
+    2 => 
+    array (
+      'index' => 2,
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
+      'Location' => 'https://{{ host }}/ssp/module.php/saml/sp/saml2-acs.php/sp',
+    ),
+    3 => 
+    array (
+      'index' => 3,
+      'Binding' => 'urn:oasis:names:tc:SAML:1.0:profiles:artifact-01',
+      'Location' => 'https://{{ host }}/ssp/module.php/saml/sp/saml1-acs.php/sp/artifact',
+    ),
+  ),
+);
+{% endfor %}

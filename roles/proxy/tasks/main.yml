@@ -43,3 +43,10 @@
     dest: "{{ ssp_path }}/metadata/saml20-idp-remote.php"
     force: yes
   become: yes
+
+- name: configure remote SAML 2.0 SP metadata
+  template:
+    src: metadata/saml20-sp-remote.php.j2
+    dest: "{{ ssp_path }}/metadata/saml20-sp-remote.php"
+    force: yes
+  become: yes

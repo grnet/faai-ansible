@@ -1,2 +1,12 @@
+# SP/IdP proxy
 [proxyservers]
 snf-673572.vm.okeanos.grnet.gr
+
+# Service Providers
+[spservers]
+snf-666522.vm.okeanos.grnet.gr
+snf-666523.vm.okeanos.grnet.gr
+
+# Service Providers based on simpleSAMLphp
+[spservers:ssp]
+snf-666522.vm.okeanos.grnet.gr
