@@ -20,10 +20,14 @@ On the deployment machine (Debian):
 
 Currently, the master playbook (`site.yml`) supports setting up the proxy element(s) of the hub-and-spoke federation based on [simpleSAMLphp](https://simplesamlphp.org).
 
-Assuming bob is a sudoer on the target machines, run 
+Assuming bob is a sudoer on the target machines, run:
 
     ansible-playbook -i development -u bob --ask-become-pass site.yml
 
-Alternatively, if bob prefers to `su` to root then run
+Alternatively, if bob prefers to `su` to root then run:
 
     ansible-playbook -u bob --become-method=su --ask-become-pass -i development site.yml
+
+Finally, if you prefer to connect as root:
+
+    ansible-playbook -u root -i development site.yml
