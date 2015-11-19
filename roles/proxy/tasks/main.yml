@@ -23,7 +23,21 @@
     force: yes
   become: yes
 
-- name: configure remote IdP metadata (Feide OpenIdP)
+- name: configure hosted SAML 2.0 IdP metadata
+  copy:
+    src: metadata/saml20-idp-hosted.php
+    dest: "{{ ssp_path }}/metadata/saml20-idp-hosted.php"
+    force: yes
+  become: yes
+
+- name: configure hosted SAML 1.1 IdP metadata
+  copy:
+    src: metadata/shib13-idp-hosted.php
+    dest: "{{ ssp_path }}/metadata/shib13-idp-hosted.php"
+    force: yes
+  become: yes
+
+- name: configure remote SAML 2.0 IdP metadata (Feide OpenIdP)
   copy:
     src: metadata/saml20-idp-remote.php
     dest: "{{ ssp_path }}/metadata/saml20-idp-remote.php"
