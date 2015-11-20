@@ -1,3 +1,5 @@
-- hosts: proxyservers
-  roles:
-    - proxy
+---
+
+- include: proxyservers.yml
+
+- include: spservers.yml

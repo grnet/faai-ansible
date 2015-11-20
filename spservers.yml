@@ -1,0 +1,5 @@
+---
+
+- hosts: spservers-ssp
+  roles:
+    - sp-ssp

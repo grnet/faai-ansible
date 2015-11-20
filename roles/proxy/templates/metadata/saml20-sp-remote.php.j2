@@ -5,7 +5,7 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-sp-remote
  */
 
-{% for host in groups['spservers:ssp'] %}
+{% for host in groups['spservers-ssp'] %}
 $metadata['https://{{ host }}/ssp/module.php/saml/sp/metadata.php/sp'] = array (
   'SingleLogoutService' => 
   array (

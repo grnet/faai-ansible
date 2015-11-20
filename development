@@ -1,12 +1,16 @@
-# SP/IdP proxy
+# SP/IdP proxy based on simpleSAMLphp
 [proxyservers]
 snf-673572.vm.okeanos.grnet.gr
 
-# Service Providers
-[spservers]
-snf-666522.vm.okeanos.grnet.gr
-snf-666523.vm.okeanos.grnet.gr
+# All Service Providers
+[spservers:children]
+spservers-ssp
+spservers-mod_auth_mellon
 
 # Service Providers based on simpleSAMLphp
-[spservers:ssp]
+[spservers-ssp]
 snf-666522.vm.okeanos.grnet.gr
+
+# Service Providers based on mod_auth_mellon (TODO)
+[spservers-mod_auth_mellon]
+snf-686578.vm.okeanos.grnet.gr
