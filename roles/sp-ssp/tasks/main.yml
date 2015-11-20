@@ -1,0 +1,23 @@
+---
+
+#- include: debian.yml
+#  when: ansible_os_family == 'Debian'
+
+#- include: centos.yml
+#  when: ansible_os_family == 'CentOS'
+
+- name: generate self-signed SP certificate
+  command: openssl req -newkey rsa:2048 -new -x509 -days 3652 -subj "/C={{ sp_certificate_country }}/ST=/L=/O=/CN={{ inventory_hostname }}" -nodes -out {{ item }}.crt -keyout {{ item }}.pem
+  args:
+    chdir: "{{ ssp_path }}/cert"
+    creates: "{{ ssp_path }}/cert/{{ item }}.pem"
+  with_items:
+    - sp
+  become: yes
+
+- name: configure SSP authN sources
+  template:
+    src: config/authsources.php.j2
+    dest: "{{ ssp_path }}/config/authsources.php"
+    force: yes
+  become: yes

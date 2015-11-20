@@ -1,0 +1,14 @@
+---
+
+ssp_adminpassword: CHANGE_ME
+
+ssp_debug: true
+
+ssp_technicalcontact_name: 'Bob the Builder'
+ssp_technicalcontact_email: 'bob.builder@example.com'
+
+sp_certificate_country: GR
+
+ssp_timezone: "'Europe/Athens'"
+# Let SSP figure it out based on the VM config
+#ssp_timezone: 'null'
