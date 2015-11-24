@@ -15,6 +15,21 @@
     - sp
   become: yes
 
+- name: fetch proxy IdP metadata
+  get_url: 
+    url: "https://{{ groups['proxyservers'][0] }}/{{ ssp_alias }}/saml2/idp/metadata.php" 
+    dest: "{{ ssp_path }}/metadata/saml20-idp-remote.xml"
+    force: yes
+    validate_certs: no
+  become: yes
+
+- name: configure SSP
+  template:
+    src: config/config.php.j2
+    dest: "{{ ssp_path }}/config/config.php"
+    force: no
+  become: yes
+
 - name: configure SSP authN sources
   template:
     src: config/authsources.php.j2

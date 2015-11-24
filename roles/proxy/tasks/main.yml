@@ -16,9 +16,16 @@
     - idp
   become: yes
 
+- name: configure SSP
+  template:
+    src: config/config.php.j2
+    dest: "{{ ssp_path }}/config/config.php"
+    force: no
+  become: yes
+
 - name: configure SSP authN sources
   template:
-    src: authsources.php.j2
+    src: config/authsources.php.j2
     dest: "{{ ssp_path }}/config/authsources.php"
     force: yes
   become: yes

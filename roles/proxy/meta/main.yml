@@ -1,4 +1,4 @@
 ---
 
 dependencies:
-  - { role: ssp, saml20_idp: true, shib13_idp: true }
+  - { role: ssp }

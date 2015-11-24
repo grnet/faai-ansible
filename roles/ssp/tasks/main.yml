@@ -48,10 +48,3 @@
   args:
     creates: "{{ ssp_path }}/config/config.php"
   register: ssp_secretsalt
-
-- name: configure SSP
-  template:
-    src: config.php.j2
-    dest: "{{ ssp_path }}/config/config.php"
-    force: no
-  become: yes

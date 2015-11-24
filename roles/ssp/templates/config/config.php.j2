@@ -595,6 +595,8 @@ $config = array(
      */
     'metadata.sources' => array(
         array('type' => 'flatfile'),
+        {% block metadata_sources %}
+        {% endblock %}
     ),
 
 

@@ -1,1 +1,4 @@
 ---
+
+saml20_idp: true
+shib13_idp: true

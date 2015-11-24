@@ -2,6 +2,10 @@
 
 A collection of playbooks for setting up a hub-and-spoke infrastracture for federated authentication & authorisation. 
 
+Currently, the master playbook (`site.yml`) supports setting up a hub-and-spoke federation comprising the following entities:
+* a centralised IdP/SP proxy based on [simpleSAMLphp](https://simplesamlphp.org) (see `proxyservers` group)
+* one or more SPs based on [simpleSAMLphp](https://simplesamlphp.org) (see `spservers-ssp` group)
+
 ## Prerequisites
 
 On the deployment machine (Debian):
@@ -13,12 +17,10 @@ On the deployment machine (Debian):
 ## Configuration
 
 * Set the target machine hostnames or IP addresses in `development`
-* DO change the default simpleSAMLphp admin password in `group_vars/proxyservers`
+* DO change the default simpleSAMLphp admin passwords in `group_vars/proxyservers` and `group_vars/spservers-ssp`
 * Modify variables in `group_vars/proxyservers` to generate the metadata of the SP proxy 
 
 ## Action!
-
-Currently, the master playbook (`site.yml`) supports setting up the proxy element(s) of the hub-and-spoke federation based on [simpleSAMLphp](https://simplesamlphp.org).
 
 Assuming bob is a sudoer on the target machines, run:
 
