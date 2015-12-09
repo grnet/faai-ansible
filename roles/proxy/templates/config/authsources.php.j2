@@ -78,21 +78,20 @@
      * The metadata will then be created as follows:
      * <md:RequestedAttribute FriendlyName="friendlyName" Name="name" />
      */
-    /*'attributes' => array(
-        'attrname' => 'urn:oid:x.x.x.x',
-    ),*/
-    /*'attributes.required' => array (
-        'urn:oid:x.x.x.x',
-    ),*/
-
-    /*
     'attributes' => array (
-        'eduPersonPrincipalName' => 'urn:oid:1.3.6.1.4.1.5923.1.1.1.6',
+    {% for key, value in proxy_sp_attributes['required'].iteritems() %}
+      '{{ key }}' => '{{ value }}',
+    {% endfor %}
+    {% for key, value in proxy_sp_attributes['optional'].iteritems() %}
+      '{{ key }}' => '{{ value }}',
+    {% endfor %}
     ),
     'attributes.required' => array (
-        'eduPersonPrincipalName' => 'urn:oid:1.3.6.1.4.1.5923.1.1.1.6',
+    {% for key, value in proxy_sp_attributes['required'].iteritems() %}
+      '{{ key }}' => '{{ value }}',
+    {% endfor %}
     ),
     'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
-    */
-),
+
+  ),
 {% endblock %}
